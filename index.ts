@@ -1,12 +1,12 @@
-import { VNodeData } from "./types/vnode"
+import { VNodeData } from "vue";
 const { assign, keys } = Object
 
-type concat = {
+type ArrayConcat = {
     (...items: any[]): any[]
     (...items: any[][]): any[]
 }
 
-function concat() {
+const concat: ArrayConcat = function() {
     return Array.prototype.concat.apply([], arguments)
 }
 
@@ -15,10 +15,11 @@ function concat() {
  * Merges arguments left to right, preferring the right argument.
  * Returns new VNodeData object.
  */
-type mergeData = {
+type VNodeMergeFn = {
     (...vNodeData: VNodeData[]): VNodeData
 }
-export default function mergeData() {
+
+const mergeData: VNodeMergeFn = function() {
     // Start by copying the first arg into a fresh object
     let mergeTarget = assign({}, arguments[0])
 

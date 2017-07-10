@@ -6,6 +6,8 @@
         "preserveConstEnums": true,
         "sourceMap": true,
         "declaration": true,
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node",
         "target": "es5"
     },
     "compileOnSave": true,

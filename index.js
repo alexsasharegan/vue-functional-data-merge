@@ -1,8 +1,8 @@
 var assign = Object.assign, keys = Object.keys;
-function concat() {
+var concat = function () {
     return Array.prototype.concat.apply([], arguments);
-}
-export default function mergeData() {
+};
+var mergeData = function () {
     var mergeTarget = assign({}, arguments[0]);
     for (var i = 1; i < arguments.length; i++) {
         for (var _i = 0, _a = keys(arguments[i]); _i < _a.length; _i++) {
@@ -51,5 +51,5 @@ export default function mergeData() {
         }
     }
     return mergeTarget;
-}
+};
 //# sourceMappingURL=index.js.map
