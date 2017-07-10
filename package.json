@@ -1,0 +1,27 @@
+{
+  "name": "vue-functional-data-merge",
+  "version": "1.0.0",
+  "description": "Vue.js util for intelligently merging data passed to functional components.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexsasharegan/vue-functional-data-merge.git"
+  },
+  "keywords": [
+    "vue",
+    "vuejs",
+    "functional",
+    "components",
+    "vue",
+    "util"
+  ],
+  "author": "Alex Regan <alex.joseph.regan@gmail.com> (https://github.com/alexsasharegan)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexsasharegan/vue-functional-data-merge/issues"
+  },
+  "homepage": "https://github.com/alexsasharegan/vue-functional-data-merge#readme"
+}

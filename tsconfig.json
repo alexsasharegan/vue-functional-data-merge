@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "module": "es2015",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "declaration": true,
+        "target": "es5"
+    },
+    "compileOnSave": true,
+    "include": ["index.ts"],
+    "exclude": ["node_modules", "**/*.spec.ts"]
+}
