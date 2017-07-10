@@ -1,12 +1,10 @@
-import { VNodeData } from "vue";
-const { assign, keys } = Object
+import { VNodeData } from "vue"
 
-type ArrayConcat = {
-    (...items: any[]): any[]
-    (...items: any[][]): any[]
-}
+const keys = Object.keys
 
-const concat: ArrayConcat = function() {
+function concat(...items: any[]): any[]
+function concat(...items: any[][]): any[]
+function concat() {
     return Array.prototype.concat.apply([], arguments)
 }
 
@@ -15,13 +13,10 @@ const concat: ArrayConcat = function() {
  * Merges arguments left to right, preferring the right argument.
  * Returns new VNodeData object.
  */
-type VNodeMergeFn = {
-    (...vNodeData: VNodeData[]): VNodeData
-}
-
-const mergeData: VNodeMergeFn = function() {
+function mergeData(...vNodeData: VNodeData[]): VNodeData
+function mergeData() {
     // Start by copying the first arg into a fresh object
-    let mergeTarget = assign({}, arguments[0])
+    let mergeTarget = { ...arguments[0] }
 
     // Allow for variadic argument length.
     // Skip first argument that was assigned to mergeTarget.
@@ -80,7 +75,7 @@ const mergeData: VNodeMergeFn = function() {
                 case "staticStyle":
                 case "hook":
                 case "transition":
-                    mergeTarget[prop] = assign({}, mergeTarget[prop], arguments[i][prop])
+                    mergeTarget[prop] = { ...mergeTarget[prop], ...arguments[i][prop] }
                     break
 
                 // Reassignment strategy (no merge)

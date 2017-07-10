@@ -6,11 +6,12 @@
         "preserveConstEnums": true,
         "sourceMap": true,
         "declaration": true,
+        "declarationDir": "dist",
         "allowSyntheticDefaultImports": true,
         "moduleResolution": "node",
         "target": "es5"
     },
     "compileOnSave": true,
-    "include": ["index.ts"],
+    "include": ["src/index.ts"],
     "exclude": ["node_modules", "**/*.spec.ts"]
 }
