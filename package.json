@@ -1,6 +1,6 @@
 {
   "name": "vue-functional-data-merge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Vue.js util for intelligently merging data passed to functional components.",
   "main": "index.js",
   "scripts": {
