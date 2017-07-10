@@ -18,7 +18,11 @@ yarn add vue-functional-data-merge
 Now import and use it in your functional component declaration:
 ```js
 // MyFunctionalComponent.js
-import mergeData from "vue-functional-data-merge" // default export, so rename as desired
+// ESM
+// TypeScript type declaration file also included
+import mergeData from "vue-functional-data-merge"
+// Common JS
+const mergeData = require("vue-functional-data-merge/dist/lib.common.js")
 
 export default {
     name: "my-functional-component",
@@ -114,4 +118,4 @@ Object.assign(
 The component data will wipe out all the context's `attrs` and `on` handlers as `Object.assign` merges these properties. This is where the `mergeData` util can help you. It will dig into the nested properties of the `context.data` and apply different merge strategies for each data property. `mergeData` works like a nested `Object.assign` in that the util has a variadic argument length&mdash;you can pass any number of arguments to it, and they will all be merged from left to right (the right most arguments taking merge priority). You don't have to pass a new target object as the first argument, as the return value will always be a fresh object.
 
 ## Additional Info
-This util was written with performance in mind. Since functional components are perfect for components that are stateless and have many nodes rendered, the `mergeData` util is expected to be called extensively. As such, minimal variable allocations are made as well as minimal internal function calls _(for loops are preferred over `map`, `reduce`, & `forEach` to avoid adding stack frames)_.
+This util was written with performance in mind. Since functional components are perfect for components that are stateless and have many nodes rendered, the `mergeData` util is expected to be called extensively. As such, minimal variable allocations are made as well as minimal internal function calls _(for loops are preferred over `map`, `reduce`, & `forEach` to avoid adding stack frames)_. TypeScript is used with Vue typings to ensure the most accurate merge strategy for each property of the `context.data` object.
