@@ -52,4 +52,5 @@ var mergeData = function () {
     }
     return mergeTarget;
 };
+export default mergeData;
 //# sourceMappingURL=index.js.map

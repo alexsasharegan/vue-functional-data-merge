@@ -98,3 +98,5 @@ const mergeData: VNodeMergeFn = function() {
 
     return mergeTarget
 }
+
+export default mergeData
