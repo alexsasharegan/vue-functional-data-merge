@@ -22,19 +22,19 @@
         "util"
     ],
     "author": "Alex Regan <alex.joseph.regan@gmail.com> (https://github.com/alexsasharegan)",
-    "license": "ISC",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/alexsasharegan/vue-functional-data-merge/issues"
     },
     "homepage": "https://github.com/alexsasharegan/vue-functional-data-merge#readme",
     "devDependencies": {
         "lodash": "^4.17.4",
-        "rollup": "^0.47.2",
-        "rollup-plugin-typescript2": "^0.5.0",
+        "rollup": "^0.47.6",
+        "rollup-plugin-typescript2": "^0.5.2",
         "rollup-plugin-uglify": "^2.0.1",
-        "typescript": "^2.4.2",
-        "uglify-es": "^3.0.27",
-        "vue": "^2.4.2"
+        "typescript": "^2.6.1",
+        "uglify-es": "^3.1.10",
+        "vue": "^2.5.8"
     },
     "dependencies": {}
 }
