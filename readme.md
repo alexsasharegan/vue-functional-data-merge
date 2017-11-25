@@ -1,10 +1,10 @@
 # vue-functional-data-merge
 
-[![npm version](https://badge.fury.io/js/vue-functional-data-merge.svg)](https://badge.fury.io/js/vue-functional-data-merge)
-[![npm downloads](https://img.shields.io/npm/dt/vue-functional-data-merge.svg)](https://www.npmjs.com/package/vue-functional-data-merge)
-[![GitHub stars](https://img.shields.io/github/stars/alexsasharegan/vue-functional-data-merge.svg)](https://github.com/alexsasharegan/vue-functional-data-merge/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/alexsasharegan/vue-functional-data-merge.svg)](https://github.com/alexsasharegan/vue-functional-data-merge/network)
-[![GitHub issues](https://img.shields.io/github/issues/alexsasharegan/vue-functional-data-merge.svg)](https://github.com/alexsasharegan/vue-functional-data-merge/issues)
+[![npm](https://img.shields.io/npm/v/vue-functional-data-merge.svg?style=for-the-badge)](https://img.shields.io/npm/v/vue-functional-data-merge)
+[![npm downloads](https://img.shields.io/npm/dt/vue-functional-data-merge.svg?style=for-the-badge)](https://www.npmjs.com/package/vue-functional-data-merge)
+[![GitHub stars](https://img.shields.io/github/stars/alexsasharegan/vue-functional-data-merge.svg?style=for-the-badge)](https://github.com/alexsasharegan/vue-functional-data-merge/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/alexsasharegan/vue-functional-data-merge.svg?style=for-the-badge)](https://github.com/alexsasharegan/vue-functional-data-merge/issues)
+[![GitHub license](https://img.shields.io/github/license/alexsasharegan/vue-functional-data-merge.svg?style=for-the-badge)](https://github.com/alexsasharegan/vue-functional-data-merge/blob/master/LICENSE.md)
 
 Vue.js util for intelligently merging data passed to functional components. (~500b gzipped)
 
