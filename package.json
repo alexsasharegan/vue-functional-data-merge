@@ -1,40 +1,57 @@
 {
-    "name": "vue-functional-data-merge",
-    "version": "1.0.7",
-    "description": "Vue.js util for intelligently merging data passed to functional components.",
-    "main": "dist/lib.esm.js",
-    "scripts": {
-        "rollup": "rollup -c",
-        "build": "npm run rollup",
-        "calc-size": "gzip -c dist/lib.esm.js | wc -c",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/alexsasharegan/vue-functional-data-merge.git"
-    },
-    "keywords": [
-        "vue",
-        "vuejs",
-        "functional",
-        "components",
-        "vue",
-        "util"
-    ],
-    "author": "Alex Regan <alex.joseph.regan@gmail.com> (https://github.com/alexsasharegan)",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/alexsasharegan/vue-functional-data-merge/issues"
-    },
-    "homepage": "https://github.com/alexsasharegan/vue-functional-data-merge#readme",
-    "devDependencies": {
-        "lodash": "^4.17.4",
-        "rollup": "^0.47.6",
-        "rollup-plugin-typescript2": "^0.5.2",
-        "rollup-plugin-uglify": "^2.0.1",
-        "typescript": "^2.6.1",
-        "uglify-es": "^3.1.10",
-        "vue": "^2.5.8"
-    },
-    "dependencies": {}
+	"name": "vue-functional-data-merge",
+	"version": "1.0.7",
+	"description": "Vue.js util for intelligently merging data passed to functional components.",
+	"main": "dist/lib.esm.js",
+	"scripts": {
+		"rollup": "rollup -c",
+		"build": "npm run rollup",
+		"calc-size": "gzip -c dist/lib.esm.js | wc -c",
+		"test": "jest"
+	},
+	"jest": {
+		"moduleFileExtensions": [
+			"ts",
+			"tsx",
+			"js"
+		],
+		"transform": {
+			"\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+		},
+		"testMatch": [
+			"**/__tests__/*.(ts|js)",
+			"**/?(*.)(spec|test).(js|ts)"
+		]
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/alexsasharegan/vue-functional-data-merge.git"
+	},
+	"keywords": [
+		"vue",
+		"vuejs",
+		"functional",
+		"components",
+		"vue",
+		"util"
+	],
+	"author": "Alex Regan <alex.joseph.regan@gmail.com> (https://github.com/alexsasharegan)",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/alexsasharegan/vue-functional-data-merge/issues"
+	},
+	"homepage": "https://github.com/alexsasharegan/vue-functional-data-merge#readme",
+	"devDependencies": {
+		"@types/jest": "^21.1.8",
+		"jest": "^21.2.1",
+		"lodash": "^4.17.4",
+		"rollup": "^0.47.6",
+		"rollup-plugin-typescript2": "^0.5.2",
+		"rollup-plugin-uglify": "^2.0.1",
+		"ts-jest": "^21.2.3",
+		"typescript": "^2.6.1",
+		"uglify-es": "^3.1.10",
+		"vue": "^2.5.8"
+	},
+	"dependencies": {}
 }
