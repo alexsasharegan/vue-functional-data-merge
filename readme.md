@@ -5,6 +5,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/alexsasharegan/vue-functional-data-merge.svg?style=for-the-badge)](https://github.com/alexsasharegan/vue-functional-data-merge/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/alexsasharegan/vue-functional-data-merge.svg?style=for-the-badge)](https://github.com/alexsasharegan/vue-functional-data-merge/issues)
 [![Travis](https://img.shields.io/travis/alexsasharegan/vue-functional-data-merge.svg?style=for-the-badge)](https://github.com/alexsasharegan/vue-functional-data-merge)
+[![Coverage Status](https://img.shields.io/coveralls/github/alexsasharegan/vue-functional-data-merge.svg?style=for-the-badge)](https://coveralls.io/github/alexsasharegan/vue-functional-data-merge)
 [![GitHub license](https://img.shields.io/github/license/alexsasharegan/vue-functional-data-merge.svg?style=for-the-badge)](https://github.com/alexsasharegan/vue-functional-data-merge/blob/master/LICENSE.md)
 
 Vue.js util for intelligently merging data passed to functional components. (0.8K => 0.4K gzipped)
