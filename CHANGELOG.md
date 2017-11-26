@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/alexsasharegan/vue-functional-data-merge/compare/v2.0.0...v2.0.1) (2017-11-26)
+
+
+### Bug Fixes
+
+* mv obj spread to index signature typing & use arguments only ([c087a4f](https://github.com/alexsasharegan/vue-functional-data-merge/commit/c087a4f))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/alexsasharegan/vue-functional-data-merge/compare/v1.0.7...v2.0.0) (2017-11-26)
 
