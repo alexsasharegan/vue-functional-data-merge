@@ -6,7 +6,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/alexsasharegan/vue-functional-data-merge.svg?style=for-the-badge)](https://github.com/alexsasharegan/vue-functional-data-merge/issues)
 [![GitHub license](https://img.shields.io/github/license/alexsasharegan/vue-functional-data-merge.svg?style=for-the-badge)](https://github.com/alexsasharegan/vue-functional-data-merge/blob/master/LICENSE.md)
 
-Vue.js util for intelligently merging data passed to functional components. (~500b gzipped)
+Vue.js util for intelligently merging data passed to functional components. (0.8K => 0.4K gzipped)
 
 ## Getting Started
 
@@ -15,6 +15,7 @@ Load the util from npm:
 ```sh
 # NPM:
 npm i vue-functional-data-merge
+
 # Yarn:
 yarn add vue-functional-data-merge
 ```
@@ -23,11 +24,11 @@ Now import and use it in your functional component declaration:
 
 ```js
 // MyFunctionalComponent.js
+
 // ESM
-// TypeScript type declaration file also included
-import mergeData from "vue-functional-data-merge"
+import { mergeData } from "vue-functional-data-merge"
 // Common JS
-const mergeData = require("vue-functional-data-merge/dist/lib.common.js")
+const { mergeData } = require("vue-functional-data-merge/dist/lib.common.js")
 
 export default {
 	name: "my-functional-component",
@@ -152,4 +153,5 @@ This util was written with performance in mind. Since functional components are 
 stateless and have many nodes rendered, the `mergeData` util is expected to be called extensively. As such, minimal
 variable allocations are made as well as minimal internal function calls _(for loops are preferred over `map`, `reduce`,
 & `forEach` to avoid adding stack frames)_. TypeScript is used with Vue typings to ensure the most accurate merge
-strategy for each property of the `context.data` object.
+strategy for each property of the `context.data` object. You can run the benchmark yourself, but simple merges run at
+~1,000,000 ops/sec and complex merges at ~400,000 ops/sec.

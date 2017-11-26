@@ -5,27 +5,31 @@ const { minify } = require("uglify-es")
 
 const dist = path.resolve(__dirname, "dist")
 const name = "lib"
-const moduleName = "mergeData"
+const plugins = [typescript()]
+
+if (process.env.NODE_ENV == "production") {
+	plugins.push(uglify({}, minify))
+}
 
 module.exports = {
-	entry: path.resolve(__dirname, "src/index.ts"),
-	plugins: [typescript(), uglify({}, minify)],
-	targets: [
+	input: path.resolve(__dirname, "src/index.ts"),
+	plugins,
+	output: [
 		{
 			format: "iife",
-			moduleName,
-			dest: path.resolve(dist, name + ".js"),
-			sourceMap: true,
+			name: "mergeData",
+			file: path.resolve(dist, "lib.js"),
+			sourcemap: true,
 		},
 		{
 			format: "cjs",
-			dest: path.resolve(dist, name + ".common.js"),
-			sourceMap: true,
+			file: path.resolve(dist, "lib.common.js"),
+			sourcemap: true,
 		},
 		{
 			format: "es",
-			dest: path.resolve(dist, name + ".esm.js"),
-			sourceMap: true,
+			file: path.resolve(dist, "lib.esm.js"),
+			sourcemap: true,
 		},
 	],
 }
