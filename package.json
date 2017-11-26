@@ -11,9 +11,8 @@
     "size": "cat dist/lib.esm.js | wc -c",
     "size:gzip": "gzip -c dist/lib.esm.js | wc -c",
     "prerelease": "npm run build && npm test",
-    "release": "npm run release:version && npm run release:publish",
-    "release:version": "standard-version",
-    "release:publish": "git push --follow-tags origin master; npm publish",
+    "release": "standard-version",
+    "postrelease": "git push --follow-tags origin master && npm publish",
     "prepublishOnly": "npm run build",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test": "jest --coverage"
