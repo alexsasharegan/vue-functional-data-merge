@@ -5,7 +5,8 @@ import { VNodeData } from "vue"
  * Merges arguments left to right, preferring the right argument.
  * Returns new VNodeData object.
  */
-function mergeData(...vNodeData: VNodeData[]): VNodeData {
+function mergeData(...vNodeData: VNodeData[]): VNodeData
+function mergeData(): VNodeData {
 	let mergeTarget: VNodeData & { [key: string]: any } = {},
 		i: number = arguments.length,
 		prop: string,
