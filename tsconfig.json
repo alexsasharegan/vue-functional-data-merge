@@ -10,7 +10,7 @@
 		"declarationDir": "dist",
 		"allowSyntheticDefaultImports": true,
 		"moduleResolution": "node",
-		"target": "es2015"
+		"target": "es5"
 	},
 	"compileOnSave": true,
 	"include": ["src/index.ts"],

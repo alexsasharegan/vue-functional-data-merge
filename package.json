@@ -5,7 +5,8 @@
   "main": "dist/lib.esm.js",
   "scripts": {
     "rollup": "rollup -c",
-    "build": "node scripts/clean && cross-env NODE_ENV=production npm run rollup",
+    "prebuild": "scripts/clean.js",
+    "build": "cross-env NODE_ENV=production npm run rollup",
     "bench": "node benchmark/",
     "size": "cat dist/lib.esm.js | wc -c",
     "size:gzip": "gzip -c dist/lib.esm.js | wc -c",
