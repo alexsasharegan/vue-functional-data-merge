@@ -2,7 +2,8 @@
   "name": "vue-functional-data-merge",
   "version": "2.0.2",
   "description": "Vue.js util for intelligently merging data passed to functional components.",
-  "main": "dist/lib.esm.js",
+	"main": "dist/lib.common.js",
+	"module": "dist/lib.esm.js",
   "scripts": {
     "rollup": "rollup -c",
     "prebuild": "scripts/clean.js",
