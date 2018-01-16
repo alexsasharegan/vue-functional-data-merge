@@ -53,7 +53,7 @@ function mergeData(): VNodeData {
 					if (!mergeTarget[prop]) {
 						mergeTarget[prop] = {}
 					}
-					for (event of Object.keys(arguments[i][prop])) {
+					for (event of Object.keys(arguments[i][prop] || {})) {
 						// Concat function to array of functions if callback present.
 						if (mergeTarget[prop][event]) {
 							// Insert current iteration data in beginning of merged array.
