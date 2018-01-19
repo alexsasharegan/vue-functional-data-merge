@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.4"></a>
+## [2.0.4](https://github.com/alexsasharegan/vue-functional-data-merge/compare/v2.0.3...v2.0.4) (2018-01-16)
+
+
+### Bug Fixes
+
+* **#5:** handle initial state nullables on nested props ([#6](https://github.com/alexsasharegan/vue-functional-data-merge/issues/6)) ([2b78c54](https://github.com/alexsasharegan/vue-functional-data-merge/commit/2b78c54)), closes [#5](https://github.com/alexsasharegan/vue-functional-data-merge/issues/5) [#5](https://github.com/alexsasharegan/vue-functional-data-merge/issues/5)
+
+
+
 <a name="2.0.3"></a>
 ## [2.0.3](https://github.com/alexsasharegan/vue-functional-data-merge/compare/v2.0.2...v2.0.3) (2017-12-09)
 
