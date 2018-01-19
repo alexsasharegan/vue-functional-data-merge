@@ -61,4 +61,5 @@ it("should call the right-most argument first", () => {
 		fn()
 	}
 	expect(first).toBe(4)
+	expect(actual).toMatchSnapshot("merge-4")
 })

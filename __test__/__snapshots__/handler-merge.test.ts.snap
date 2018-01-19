@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`merge-4 1`] = `
+Object {
+  "on": Object {
+    "click": Array [
+      [Function],
+      [Function],
+      [Function],
+      [Function],
+    ],
+  },
+}
+`;
