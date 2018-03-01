@@ -4,6 +4,7 @@
   "description": "Vue.js util for intelligently merging data passed to functional components.",
   "main": "dist/lib.common.js",
   "module": "dist/lib.esm.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "rollup": "rollup -c",
     "prebuild": "scripts/clean.js",
@@ -32,8 +33,7 @@
       "**/?(*.)(spec|test).(js|ts)"
     ],
     "coverageDirectory": "coverage",
-    "collectCoverage": true,
-    "mapCoverage": true
+    "collectCoverage": true
   },
   "repository": {
     "type": "git",
@@ -55,19 +55,19 @@
   "homepage": "https://github.com/alexsasharegan/vue-functional-data-merge#readme",
   "devDependencies": {
     "@types/benchmark": "^1.0.31",
-    "@types/jest": "^22.0.1",
+    "@types/jest": "^22.1.4",
     "benchmark": "^2.1.4",
     "coveralls": "^3.0.0",
     "cross-env": "^5.1.3",
-    "jest": "^22.1.3",
-    "lodash": "^4.17.4",
-    "rollup": "^0.54.1",
-    "rollup-plugin-typescript2": "^0.10.0",
-    "rollup-plugin-uglify": "^2.0.1",
+    "jest": "^22.4.2",
+    "lodash": "^4.17.5",
+    "rollup": "^0.56.3",
+    "rollup-plugin-typescript2": "^0.11.1",
+    "rollup-plugin-uglify": "^3.0.0",
     "standard-version": "^4.3.0",
-    "ts-jest": "^22.0.1",
-    "typescript": "^2.6.2",
-    "uglify-es": "^3.3.7",
+    "ts-jest": "^22.4.0",
+    "typescript": "^2.7.2",
+    "uglify-es": "^3.3.10",
     "vue": "^2.5.13"
   },
   "dependencies": {}
