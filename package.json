@@ -1,12 +1,12 @@
 {
   "name": "vue-functional-data-merge",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Vue.js util for intelligently merging data passed to functional components.",
   "main": "dist/lib.common.js",
   "module": "dist/lib.esm.js",
   "types": "dist/index.d.ts",
   "scripts": {
-		"fmt": "npx prettier --config ./.prettierrc --write {__test__,src}/**/*.{ts,js}",
+    "fmt": "npx prettier --config ./.prettierrc --write {__test__,src}/**/*.{ts,js}",
     "rollup": "rollup -c",
     "prebuild": "scripts/clean.js",
     "build": "cross-env NODE_ENV=production npm run rollup",
