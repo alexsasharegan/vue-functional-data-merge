@@ -11,10 +11,10 @@
 Vue.js util for intelligently merging data passed to functional components. (1K
 => 0.5K gzipped)
 
-* [Getting Started](#getting-started)
-* [Why do I need this util?](#why-do-i-need-this-util)
-* [Scoped Styles](#scoped-styles)
-* [Performance](#performance)
+- [Getting Started](#getting-started)
+- [Why do I need this util?](#why-do-i-need-this-util)
+- [Scoped Styles](#scoped-styles)
+- [Performance](#performance)
 
 ## Getting Started
 
