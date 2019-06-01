@@ -2,7 +2,6 @@ import { VNodeData } from "vue";
 
 const pattern = {
   camel: /-(\w)/g,
-  // style: /;\s*\w+/,
 } as const;
 
 function camelReplace(_substr: string, match: string) {
@@ -10,8 +9,7 @@ function camelReplace(_substr: string, match: string) {
 }
 
 function camelCase(str: string) {
-  str = str.replace(pattern.camel, camelReplace);
-  return str.charAt(0).toLowerCase() + str.slice(1);
+  return str.replace(pattern.camel, camelReplace);
 }
 
 function parseStyle(style: string) {
@@ -23,11 +21,11 @@ function parseStyle(style: string) {
     if (!key) {
       continue;
     }
-    // May be undefined
+    // May be undefined if the `key: value` pair is incomplete.
     if (typeof val === "string") {
       val = val.trim();
     }
-    styleMap[camelCase(key.trim())] = val;
+    styleMap[camelCase(key)] = val;
   }
 
   return styleMap;
