@@ -27,7 +27,7 @@
       "js"
     ],
     "transform": {
-      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "\\.(ts|tsx)$": "ts-jest"
     },
     "testMatch": [
       "**/__tests__/*.(ts|js)",
@@ -56,22 +56,22 @@
   "homepage": "https://github.com/alexsasharegan/vue-functional-data-merge#readme",
   "devDependencies": {
     "@types/benchmark": "^1.0.31",
-    "@types/jest": "^23.3.1",
+    "@types/jest": "^24.0.13",
     "benchmark": "^2.1.4",
-    "coveralls": "^3.0.2",
+    "coveralls": "^3.0.3",
     "cross-env": "^5.2.0",
-    "jest": "^23.5.0",
-    "lodash": "^4.17.10",
-    "prettier": "^1.14.2",
-    "rollup": "^0.65.2",
-    "rollup-plugin-terser": "^2.0.2",
-    "rollup-plugin-typescript2": "^0.17.0",
-    "rollup-plugin-uglify": "^5.0.2",
-    "standard-version": "^4.4.0",
-    "ts-jest": "^23.1.4",
-    "typescript": "^3.0.3",
+    "jest": "^24.8.0",
+    "lodash": "^4.17.11",
+    "prettier": "^1.17.1",
+    "rollup": "^1.13.1",
+    "rollup-plugin-terser": "^5.0.0",
+    "rollup-plugin-typescript2": "^0.21.1",
+    "rollup-plugin-uglify": "^6.0.2",
+    "standard-version": "^6.0.1",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.1",
     "uglify-es": "^3.3.9",
-    "vue": "^2.5.17"
+    "vue": "^2.6.10"
   },
   "dependencies": {}
 }
