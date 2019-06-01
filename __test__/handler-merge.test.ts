@@ -1,4 +1,4 @@
-import { VNodeData, VNodeDirective } from "vue";
+import { VNodeData } from "vue";
 import { mergeData } from "../src/index";
 
 it("should not mutate original object (issue #2)", () => {
@@ -53,7 +53,7 @@ it("should set single handlers and concat multi", () => {
 
 it("should call the right-most argument first", () => {
   let first = 0;
-  let factory = n => () => {
+  let factory = (n: number) => () => {
     if (!first) {
       first = n;
     }
@@ -67,6 +67,10 @@ it("should call the right-most argument first", () => {
   );
 
   expect(Array.isArray(actual.on.click)).toBe(true);
+  if (!Array.isArray(actual.on.click)) {
+    throw new TypeError();
+  }
+
   for (const fn of actual.on.click) {
     fn();
   }

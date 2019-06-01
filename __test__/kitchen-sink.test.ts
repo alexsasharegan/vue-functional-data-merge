@@ -1,4 +1,4 @@
-import { VNodeData, VNodeDirective } from "vue";
+import { VNodeData } from "vue";
 import { mergeData } from "../src/index";
 
 it("should handle multiple arguments", () => {
@@ -28,8 +28,8 @@ it("should handle multiple arguments", () => {
 });
 
 it("should work like in the example", () => {
-  let onClick1 = e => alert("💥");
-  let onClick2 = e => alert("👍");
+  let onClick1 = () => alert("💥");
+  let onClick2 = () => alert("👍");
 
   let componentData: VNodeData = {
     staticClass: "fn-component", // concatenates all static classes

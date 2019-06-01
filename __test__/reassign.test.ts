@@ -1,4 +1,4 @@
-import { VNodeData, VNodeDirective } from "vue";
+import { VNodeData } from "vue";
 import { mergeData } from "../src/index";
 
 it("should reassign primitives", () => {

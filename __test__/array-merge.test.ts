@@ -1,10 +1,7 @@
-import { VNodeData, VNodeDirective } from "vue";
+import { VNodeData } from "vue";
 import { mergeData } from "../src/index";
 
 it("should execute array merge on class, style, directive properties", () => {
-  function inserted(el: any) {
-    el.focus();
-  }
   let vd1: VNodeData = {
     class: ["a", { b: true, c: false }],
     style: ["display:block;", { color: "red", fontSize: "16px" }],
@@ -12,7 +9,6 @@ it("should execute array merge on class, style, directive properties", () => {
   let vd2: VNodeData = {
     class: ["d", { e: true, f: false }],
     style: "position:absolute;",
-    directives: [{ focus: { inserted } }],
   };
 
   let actual = mergeData(vd1, vd2);
@@ -23,7 +19,6 @@ it("should execute array merge on class, style, directive properties", () => {
       "display:block;",
       { color: "red", fontSize: "16px" },
     ],
-    directives: [{ focus: { inserted } }],
   };
 
   // Check values recursively
