@@ -1,8 +1,8 @@
 import { VNodeData } from "vue";
 
 const pattern = {
-  camel: /-(\w)/g,
-  style: /:(.*)/,
+  kebab: /-(\w)/g,
+  styleProp: /:(.*)/,
 	styleList: /;(?![^(]*\))/g,
 } as const;
 
@@ -11,14 +11,14 @@ function camelReplace(_substr: string, match: string) {
 }
 
 function camelCase(str: string) {
-  return str.replace(pattern.camel, camelReplace);
+  return str.replace(pattern.kebab, camelReplace);
 }
 
 function parseStyle(style: string) {
   let styleMap: Record<string, any> = {};
 
   for (let s of style.split(pattern.styleList)) {
-    let [key, val] = s.split(pattern.style);
+    let [key, val] = s.split(pattern.styleProp);
     key = key.trim();
     if (!key) {
       continue;
