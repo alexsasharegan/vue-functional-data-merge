@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/alexsasharegan/vue-functional-data-merge/compare/v3.0.1...v3.1.0) (2019-06-01)
+
+
+### Features
+
+* vue compliant style string parsing ([#9](https://github.com/alexsasharegan/vue-functional-data-merge/issues/9)) ([e7d640b](https://github.com/alexsasharegan/vue-functional-data-merge/commit/e7d640b)), closes [/github.com/vuejs/vue/blob/dev/src/platforms/web/util/style.js#L5-L16](https://github.com/alexsasharegan/vue-functional-data-merge/issues/L5-L16)
+
+
+
 ### [3.0.1](https://github.com/alexsasharegan/vue-functional-data-merge/compare/v3.0.0...v3.0.1) (2019-06-01)
 
 
