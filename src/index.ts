@@ -1,5 +1,38 @@
 import { VNodeData } from "vue";
 
+const pattern = {
+  camel: /-(\w)/g,
+  // style: /;\s*\w+/,
+} as const;
+
+function camelReplace(_substr: string, match: string) {
+  return match ? match.toUpperCase() : "";
+}
+
+function camelCase(str: string) {
+  str = str.replace(pattern.camel, camelReplace);
+  return str.charAt(0).toLowerCase() + str.slice(1);
+}
+
+function parseStyle(style: string) {
+  let styleMap: Record<string, any> = {};
+
+  for (let s of style.split(";")) {
+    let [key, val] = s.split(":");
+    key = key.trim();
+    if (!key) {
+      continue;
+    }
+    // May be undefined
+    if (typeof val === "string") {
+      val = val.trim();
+    }
+    styleMap[camelCase(key.trim())] = val;
+  }
+
+  return styleMap;
+}
+
 /**
  * Intelligently merges data for createElement.
  * Merges arguments left to right, preferring the right argument.
@@ -7,10 +40,10 @@ import { VNodeData } from "vue";
  */
 function mergeData(...vNodeData: VNodeData[]): VNodeData;
 function mergeData(): VNodeData {
-  let mergeTarget: VNodeData & { [key: string]: any } = {},
-    i: number = arguments.length,
-    prop: string,
-    event: string;
+  let mergeTarget: VNodeData & Record<string, any> = {};
+  let i: number = arguments.length;
+  let prop: string;
+  let event: string;
 
   // Allow for variadic argument length.
   while (i--) {
@@ -25,6 +58,23 @@ function mergeData(): VNodeData {
           if (!Array.isArray(mergeTarget[prop])) {
             mergeTarget[prop] = [];
           }
+
+          if (prop === "style") {
+            let style: any[];
+            if (Array.isArray(arguments[i].style)) {
+              style = arguments[i].style;
+            } else {
+              style = [arguments[i].style];
+            }
+            for (let j = 0; j < style.length; j++) {
+              let s = style[j];
+              if (typeof s === "string") {
+                style[j] = parseStyle(s);
+              }
+            }
+            arguments[i].style = style;
+          }
+
           // Repackaging in an array allows Vue runtime
           // to merge class/style bindings regardless of type.
           mergeTarget[prop] = mergeTarget[prop].concat(arguments[i][prop]);

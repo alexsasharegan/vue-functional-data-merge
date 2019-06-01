@@ -1,6 +1,35 @@
 import { VNodeData } from "vue";
 import { mergeData } from "../src/index";
 
+it("should convert style strings to objects", () => {
+  let data: VNodeData[] = [
+    {
+      style: " transform : translateX(-50%) ; ",
+    },
+    {
+      style: " stroke-dashoffset : 150px ; ",
+    },
+    {
+      style:
+        "transition: stroke-dashoffset 0.3s;transform: rotate(-90deg); transform-origin: 50% 50%; ",
+    },
+  ];
+
+  let expected = {
+    style: [
+      {
+        transition: "stroke-dashoffset 0.3s",
+        transform: "rotate(-90deg)",
+        transformOrigin: "50% 50%",
+      },
+      { strokeDashoffset: "150px" },
+      { transform: "translateX(-50%)" },
+    ],
+  };
+
+  expect(mergeData(...data)).toEqual(expected);
+});
+
 it("should execute array merge on class, style, directive properties", () => {
   let vd1: VNodeData = {
     class: ["a", { b: true, c: false }],
@@ -15,8 +44,8 @@ it("should execute array merge on class, style, directive properties", () => {
   let expected = {
     class: ["d", { e: true, f: false }, "a", { b: true, c: false }],
     style: [
-      "position:absolute;",
-      "display:block;",
+      { position: "absolute" },
+      { display: "block" },
       { color: "red", fontSize: "16px" },
     ],
   };
