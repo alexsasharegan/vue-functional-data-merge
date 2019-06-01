@@ -10,7 +10,9 @@ it("should convert style strings to objects", () => {
       style: " stroke-dashoffset : 150px ; ",
     },
     {
-      style: `background: url("https://unsplash.com/photos/xSPd2ifk5L8")`,
+      style: `
+      background: url("https://unsplash.com/photos/xSPd2ifk5L8");
+      background-image: url(https://foo.com/bar?baz;biz;)`,
     },
     {
       style:
@@ -25,7 +27,10 @@ it("should convert style strings to objects", () => {
         transform: "rotate(-90deg)",
         transformOrigin: "50% 50%",
       },
-      { background: `url("https://unsplash.com/photos/xSPd2ifk5L8")` },
+      {
+        background: `url("https://unsplash.com/photos/xSPd2ifk5L8")`,
+        backgroundImage: `url(https://foo.com/bar?baz;biz;)`,
+      },
       { strokeDashoffset: "150px" },
       { transform: "translateX(-50%)" },
     ],
