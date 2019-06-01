@@ -1,6 +1,26 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [3.0.0](https://github.com/alexsasharegan/vue-functional-data-merge/compare/v2.0.7...v3.0.0) (2019-06-01)
+
+
+### Bug Fixes
+
+* remove unnecessary code ([9c9f3ce](https://github.com/alexsasharegan/vue-functional-data-merge/commit/9c9f3ce))
+* update tests for latest jest version ([1e4f2f0](https://github.com/alexsasharegan/vue-functional-data-merge/commit/1e4f2f0))
+
+
+### Features
+
+* parse & merge style strings ([6894fa7](https://github.com/alexsasharegan/vue-functional-data-merge/commit/6894fa7))
+
+
+### BREAKING CHANGES
+
+* parsing strings into style objects changes the output and rendered style behavior in components
+
+
 
 <a name="2.0.7"></a>
 ## [2.0.7](https://github.com/alexsasharegan/vue-functional-data-merge/compare/v2.0.6...v2.0.7) (2018-09-07)
