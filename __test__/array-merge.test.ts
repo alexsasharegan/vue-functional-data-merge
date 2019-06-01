@@ -10,9 +10,12 @@ it("should convert style strings to objects", () => {
       style: " stroke-dashoffset : 150px ; ",
     },
     {
+      // tests valid extra prop separators `:`,
+      // list separators `;`, and trailing props without a terminating `;`
       style: `
       background: url("https://unsplash.com/photos/xSPd2ifk5L8");
-      background-image: url(https://foo.com/bar?baz;biz;)`,
+      background-image: url(https://foo.com/bar?baz;biz;);
+      background-position: center center`,
     },
     {
       style:
@@ -30,6 +33,7 @@ it("should convert style strings to objects", () => {
       {
         background: `url("https://unsplash.com/photos/xSPd2ifk5L8")`,
         backgroundImage: `url(https://foo.com/bar?baz;biz;)`,
+        backgroundPosition: "center center",
       },
       { strokeDashoffset: "150px" },
       { transform: "translateX(-50%)" },
