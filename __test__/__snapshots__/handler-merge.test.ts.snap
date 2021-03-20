@@ -2,13 +2,11 @@
 
 exports[`should call the right-most argument first: merge-4 1`] = `
 Object {
-  "on": Object {
-    "click": Array [
-      [Function],
-      [Function],
-      [Function],
-      [Function],
-    ],
-  },
+  "onClick": Array [
+    [Function],
+    [Function],
+    [Function],
+    [Function],
+  ],
 }
 `;

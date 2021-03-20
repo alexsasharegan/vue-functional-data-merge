@@ -1,4 +1,4 @@
-import { VNodeData } from "vue";
+import { mergeClass, AttrsClass } from "./mergeClass";
 
 const pattern = {
   kebab: /-(\w)/g,
@@ -36,14 +36,13 @@ function parseStyle(style: string) {
 /**
  * Intelligently merges data for createElement.
  * Merges arguments left to right, preferring the right argument.
- * Returns new VNodeData object.
+ * Returns new attributes (Record<string, unknown>) object.
  */
-function mergeData(...vNodeData: VNodeData[]): VNodeData;
-function mergeData(): VNodeData {
-  let mergeTarget: VNodeData & Record<string, any> = {};
+function mergeData(...vNodeData: Record<string, unknown>[]): Record<string, unknown>;
+function mergeData(): Record<string, unknown> {
+  let mergeTarget: Record<string, unknown> = {};
   let i: number = arguments.length;
   let prop: string;
-  let event: string;
 
   // Allow for variadic argument length.
   while (i--) {
@@ -51,97 +50,71 @@ function mergeData(): VNodeData {
     // Object.keys eliminates need for hasOwnProperty call
     for (prop of Object.keys(arguments[i])) {
       switch (prop) {
-        // Array merge strategy (array concatenation)
+        // class merge strategy (parse clas objects, and merge to an array containing strings and max 1 object for conditionals)
         case "class":
-        case "style":
-        case "directives":
+          mergeTarget[prop] = mergeClass(mergeTarget[prop] as AttrsClass, arguments[i][prop] as AttrsClass);
+          continue;
+        //merge style by concatenating arrays
+        case "style": {
           if (!Array.isArray(mergeTarget[prop])) {
             mergeTarget[prop] = [];
           }
 
-          if (prop === "style") {
-            let style: any[];
-            if (Array.isArray(arguments[i].style)) {
-              style = arguments[i].style;
-            } else {
-              style = [arguments[i].style];
-            }
-            for (let j = 0; j < style.length; j++) {
-              let s = style[j];
-              if (typeof s === "string") {
-                style[j] = parseStyle(s);
-              }
-            }
-            arguments[i].style = style;
+          let style: any[];
+          if (Array.isArray(arguments[i].style)) {
+            style = arguments[i].style;
+          } else {
+            style = [arguments[i].style];
           }
+          for (let j = 0; j < style.length; j++) {
+            let s = style[j];
+            if (typeof s === "string") {
+              style[j] = parseStyle(s);
+            }
+          }
+          if(style === undefined || style === null || style.every(x => x === undefined || x === null)) style = [];
+          mergeTarget[prop] = (mergeTarget[prop] as Record<string, unknown>[]).concat(style);
+          continue;
+        }
 
-          // Repackaging in an array allows Vue runtime
-          // to merge class/style bindings regardless of type.
-          mergeTarget[prop] = mergeTarget[prop].concat(arguments[i][prop]);
-          break;
-        // Space delimited string concatenation strategy
-        case "staticClass":
-          if (!arguments[i][prop]) {
-            break;
+        case "id":
+        case "key":
+        case "ref":
+        case "keepAlive": {
+          if (!mergeTarget[prop]) {
+            mergeTarget[prop] = arguments[i][prop];
           }
-          if (mergeTarget[prop] === undefined) {
-            mergeTarget[prop] = "";
-          }
-          if (mergeTarget[prop]) {
-            // Not an empty string, so concatenate
-            mergeTarget[prop] += " ";
-          }
-          mergeTarget[prop] += arguments[i][prop].trim();
-          break;
+          continue;
+        }
+      }
+
+      if (prop.startsWith('on') && prop !== 'on') {
+        debugger;
         // Object, the properties of which to merge via array merge strategy (array concatenation).
         // Callback merge strategy merges callbacks to the beginning of the array,
         // so that the last defined callback will be invoked first.
         // This is done since to mimic how Object.assign merging
         // uses the last given value to assign.
-        case "on":
-        case "nativeOn":
-          if (!mergeTarget[prop]) {
-            mergeTarget[prop] = {};
+
+        // Concat function to array of functions if callback present.
+        if (mergeTarget[prop] && !Array.isArray(mergeTarget[prop])) {
+          // Insert current iteration data in beginning of merged array.
+          mergeTarget[prop] = [
+            mergeTarget[prop],
+            arguments[i][prop]
+          ]
+          continue;
+        } else if (Array.isArray(mergeTarget[prop])) {
+          if(Array.isArray(arguments[i][prop])) {
+            (mergeTarget[prop] as unknown[]).push(...arguments[i][prop])
+          } else {
+            (mergeTarget[prop] as unknown[]).push(arguments[i][prop])
           }
-          for (event of Object.keys(arguments[i][prop] || {})) {
-            // Concat function to array of functions if callback present.
-            if (mergeTarget[prop][event]) {
-              // Insert current iteration data in beginning of merged array.
-              mergeTarget[prop][event] = [].concat(
-                mergeTarget[prop][event],
-                arguments[i][prop][event]
-              );
-            } else {
-              // Straight assign.
-              mergeTarget[prop][event] = arguments[i][prop][event];
-            }
-          }
-          break;
-        // Object merge strategy
-        case "attrs":
-        case "props":
-        case "domProps":
-        case "scopedSlots":
-        case "staticStyle":
-        case "hook":
-        case "transition":
-          if (!mergeTarget[prop]) {
-            mergeTarget[prop] = {};
-          }
-          mergeTarget[prop] = { ...arguments[i][prop], ...mergeTarget[prop] };
-          break;
-        // Reassignment strategy (no merge)
-        case "slot":
-        case "key":
-        case "ref":
-        case "tag":
-        case "show":
-        case "keepAlive":
-        default:
-          if (!mergeTarget[prop]) {
-            mergeTarget[prop] = arguments[i][prop];
-          }
+          continue;
+        }
       }
+
+      mergeTarget[prop] = arguments[i][prop];
     }
   }
 
