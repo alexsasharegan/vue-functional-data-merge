@@ -1,11 +1,9 @@
 export type AttrsClass =
   string | string[] | Record<string, boolean> | (string|Record<string, boolean>)[];
 
-function reorganize(attrsClass: AttrsClass): AttrsClass {
-  if (!Array.isArray(attrsClass)) {
-    return attrsClass;
-  }
+type AttrsClassArray = string[] | (string|Record<string,boolean>)[];
 
+function reorganize(attrsClass: AttrsClassArray): AttrsClass {
   const objectIndices: number[] = [];
   for (let i = 0; i < attrsClass.length; i += 1) {
     if (typeof attrsClass[i] === 'object') {
@@ -21,16 +19,25 @@ function reorganize(attrsClass: AttrsClass): AttrsClass {
 }
 
 export function mergeClass(
-  attrsClass: AttrsClass | undefined,
-  classes: AttrsClass,
-): AttrsClass {
-  if(classes === '') {
-    return attrsClass;
+  target: AttrsClass | undefined,
+  source: AttrsClass | undefined,
+): AttrsClass | undefined {
+  if(source === undefined || source === '') {
+    return target;
   }
 
-  if (attrsClass === undefined) {
-    return classes;
+  if (target === undefined) {
+    return source;
   }
+
+  let attrsClass: AttrsClass;
+  let classes: AttrsClass;
+  
+  if(typeof target === 'string') attrsClass = target;
+  else attrsClass = Array.isArray(target) ? [...target] : Object.assign({}, target);
+
+  if(typeof source === 'string') classes = source;
+  else classes = Array.isArray(source) ? [...source] : Object.assign({}, source);
 
   if (typeof attrsClass === 'string') {
     attrsClass = [
@@ -57,7 +64,7 @@ export function mergeClass(
     }
   }
 
-  const objectIndex: number = attrsClass.findIndex((x) => typeof x === 'object');
+  const objectIndex: number = attrsClass.findIndex((x) => typeof x === 'object' && !Array.isArray(x));
   let classesRecord: Record<string, boolean> | null = null;
 
   if (!Array.isArray(classes) && typeof classes === 'object') {
@@ -70,19 +77,20 @@ export function mergeClass(
   }
 
   if (classesRecord == null && Array.isArray(classes)) {
-    const classObjectIndex: number = classes.findIndex((x) => typeof x === 'object');
+    const classObjectIndex: number = classes.findIndex((x) => typeof x === 'object' && !Array.isArray(x));
     if (classObjectIndex >= 0) classesRecord = classes[classObjectIndex] as Record<string, boolean>;
   }
 
   if (objectIndex !== -1 && classesRecord != null) {
     Object.keys(classesRecord).forEach((key) => {
-      if (Array.isArray(attrsClass) && classesRecord != null) {
-        (attrsClass[objectIndex] as Record<string, boolean>)[key] = classesRecord[key];
-      }
+      (attrsClass as Record<string,boolean>[])[objectIndex][key] = classesRecord[key];
     });
   } else if (objectIndex === -1 && classesRecord != null) {
     (attrsClass as Record<string, boolean>[]).push(classesRecord);
   }
+
+  //deconstruct back to object if attrsClass is only an object.
+  if(attrsClass.length === 1 && !Array.isArray(attrsClass[0]) && typeof attrsClass[0] === 'object') return attrsClass[0];
 
   return reorganize(attrsClass);
 }

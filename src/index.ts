@@ -52,7 +52,7 @@ function mergeData(): Record<string, unknown> {
       switch (prop) {
         // class merge strategy (parse clas objects, and merge to an array containing strings and max 1 object for conditionals)
         case "class":
-          mergeTarget[prop] = mergeClass(mergeTarget[prop] as AttrsClass, arguments[i][prop] as AttrsClass);
+          mergeTarget[prop] = mergeClass(arguments[i][prop] as AttrsClass, mergeTarget[prop] as AttrsClass);
           continue;
         //merge style by concatenating arrays
         case "style": {
@@ -89,7 +89,6 @@ function mergeData(): Record<string, unknown> {
       }
 
       if (prop.startsWith('on') && prop !== 'on') {
-        debugger;
         // Object, the properties of which to merge via array merge strategy (array concatenation).
         // Callback merge strategy merges callbacks to the beginning of the array,
         // so that the last defined callback will be invoked first.

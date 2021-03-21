@@ -14,7 +14,8 @@ it("should convert style strings to objects", () => {
       style: `
       background: url("https://unsplash.com/photos/xSPd2ifk5L8");
       background-image: url(https://foo.com/bar?baz;biz;);
-      background-position: center center`,
+      background-position: center center
+      content: "Hello!"`,
     },
     {
       style:
@@ -54,7 +55,7 @@ it("should execute array merge on class, style, directive properties", () => {
 
   let actual = mergeData(vd1, vd2);
   let expected = {
-    class: ["d", "a", { e: true, f: false, b: true, c: false }],
+    class: ["a", "d", { e: true, f: false, b: true, c: false }],
     style: [
       { position: "absolute" },
       { display: "block" },
