@@ -14,8 +14,7 @@ it("should convert style strings to objects", () => {
       style: `
       background: url("https://unsplash.com/photos/xSPd2ifk5L8");
       background-image: url(https://foo.com/bar?baz;biz;);
-      background-position: center center
-      content: "Hello!"`,
+      background-position: center center`
     },
     {
       style:

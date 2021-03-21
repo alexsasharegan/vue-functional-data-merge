@@ -7,7 +7,7 @@ const pattern = {
 } as const;
 
 function camelReplace(_substr: string, match: string) {
-  return match ? match.toUpperCase() : "";
+  return match.toUpperCase();
 }
 
 function camelCase(str: string) {
@@ -24,9 +24,7 @@ function parseStyle(style: string) {
       continue;
     }
     // May be undefined if the `key: value` pair is incomplete.
-    if (typeof val === "string") {
-      val = val.trim();
-    }
+    val = val.trim();
     styleMap[camelCase(key)] = val;
   }
 
