@@ -1,4 +1,3 @@
-import { VNodeData } from "vue";
 import { mergeData } from "../src/index";
 
 it("should handle multiple arguments", () => {
@@ -6,65 +5,59 @@ it("should handle multiple arguments", () => {
   function click() {}
   function mouseup() {}
 
-  let expected: VNodeData = {
-    staticClass: "btn ml-auto",
-    class: [{ "text-center": true }, "btn-block", { "btn-primary": true }],
-    on: {
-      click: [click, click],
-      mouseup: [mouseup, mouseup],
-    },
+  let expected: Record<string, unknown> = {
+    class: ["btn", "ml-auto", "btn-block", { "text-center": true, "btn-primary": true }],
+    onClick: [click, click],
+    onMouseup: [mouseup, mouseup],
   };
 
   let actual = mergeData(
-    { staticClass: "ml-auto" },
-    { staticClass: "btn", class: { "btn-primary": true } },
+    { class: "ml-auto" },
+    { class: ["btn", { "btn-primary": true } ] },
     { class: ["btn-block"] },
-    { on: { click, mouseup } },
-    { on: { click, mouseup } },
+    { onClick: click, onMouseup: mouseup },
+    { onClick: click, onMouseup: mouseup },
     { class: { "text-center": true } }
   );
 
-  expect(actual).toEqual(expected);
+  expect(actual.class).toEqual(expect.arrayContaining(expected.class as any[]))
+  expect(actual.onClick).toEqual([click, click]);
+  expect(actual.onMouseup).toEqual([mouseup, mouseup]);
 });
 
 it("should work like in the example", () => {
   let onClick1 = () => alert("💥");
   let onClick2 = () => alert("👍");
 
-  let componentData: VNodeData = {
-    staticClass: "fn-component", // concatenates all static classes
-    class: {
-      active: true,
-      "special-class": false,
-    },
-    attrs: {
-      id: "my-functional-component",
-    },
-    on: {
-      click: onClick1,
-    },
+  let componentData: Record<string, unknown> = {
+    class: [
+      "fn-component",
+      {
+        active: true,
+        "special-class": false,
+      }
+    ],
+    id: "my-functional-component",
+    onClick: onClick1,
   };
+
   // <my-btn variant="primary" type="submit" id="form-submit-btn" @click="onClick">Submit</my-btn>
-  let templateData: VNodeData = {
-    attrs: {
-      id: "form-submit-btn",
-      type: "submit",
-    },
-    on: { click: onClick2 },
+  let templateData: Record<string, unknown> = {
+    id: "form-submit-btn",
+    type: "submit",
+    onClick: onClick2,
   };
 
   expect(mergeData(templateData, componentData)).toEqual({
-    staticClass: "fn-component",
-    class: expect.arrayContaining([
+    class: [
+      "fn-component",
       {
         active: true,
         "special-class": false,
       },
-    ]),
-    attrs: {
-      id: "my-functional-component",
-      type: "submit",
-    },
-    on: { click: expect.arrayContaining([onClick1, onClick2]) },
+    ],
+    id: "my-functional-component",
+    type: "submit",
+    onClick: expect.arrayContaining([onClick1, onClick2]),
   });
 });

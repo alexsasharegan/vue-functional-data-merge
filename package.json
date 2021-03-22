@@ -8,7 +8,7 @@
   "scripts": {
     "fmt": "prettier --config ./.prettierrc --write {__test__,src}/**/*.{ts,js}",
     "rollup": "rollup -c",
-    "prebuild": "scripts/clean.js",
+    "prebuild": "node scripts/clean.js",
     "build": "cross-env NODE_ENV=production npm run rollup",
     "bench": "node benchmark/",
     "size": "cat dist/lib.esm.js | wc -c",
@@ -74,8 +74,6 @@
     "standard-version": "^6.0.1",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.1",
-    "uglify-es": "^3.3.9",
-    "vue": "^2.6.10"
-  },
-  "dependencies": {}
+    "uglify-es": "^3.3.9"
+  }
 }
