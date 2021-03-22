@@ -1,7 +1,7 @@
-import { mergeData } from "../src/index";
+import { mergeData, VNodeData } from "../src/index";
 
 it("should convert style strings to objects", () => {
-  let data: Record<string, unknown>[] = [
+  let vNodeData = [
     {
       style: " transform : translateX(-50%) ; ",
     },
@@ -14,7 +14,7 @@ it("should convert style strings to objects", () => {
       style: `
       background: url("https://unsplash.com/photos/xSPd2ifk5L8");
       background-image: url(https://foo.com/bar?baz;biz;);
-      background-position: center center`
+      background-position: center center`,
     },
     {
       style:
@@ -39,22 +39,22 @@ it("should convert style strings to objects", () => {
     ],
   };
 
-  expect(mergeData(...data)).toEqual(expected);
+  expect(mergeData(...vNodeData)).toEqual(expected);
 });
 
 it("should execute array merge on class, style, directive properties", () => {
-  let vd1: Record<string, unknown> = {
+  let vd1: VNodeData = {
     class: ["a", { b: true, c: false }],
     style: ["display:block;", { color: "red", fontSize: "16px" }],
   };
-  let vd2: Record<string, unknown> = {
+  let vd2: VNodeData = {
     class: ["d", { e: true, f: false }],
     style: "position:absolute;",
   };
 
   let actual = mergeData(vd1, vd2);
   let expected = {
-    class: ["a", "d", { e: true, f: false, b: true, c: false }],
+    class: ["d", { e: true, f: false }, "a", { b: true, c: false }],
     style: [
       { position: "absolute" },
       { display: "block" },

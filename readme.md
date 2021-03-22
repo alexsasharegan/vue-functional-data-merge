@@ -109,11 +109,17 @@ usage simpler. Usage would look like this:
 
 ```html
 <template>
-	<form>
-		<input type="text" placeholder="Name" required>
-		<input type="email" placeholder="email" required>
-		<my-btn variant="primary" type="submit" id="form-submit-btn" @click="onClick">Submit</my-btn>
-	</form>
+  <form>
+    <input type="text" placeholder="Name" required />
+    <input type="email" placeholder="email" required />
+    <my-btn
+      variant="primary"
+      type="submit"
+      id="form-submit-btn"
+      @click="onClick"
+      >Submit</my-btn
+    >
+  </form>
 </template>
 ```
 
@@ -194,9 +200,7 @@ selector.
   }
 </style>
 
-<button data-v-f3f3eg9 class="my-class">
-  Click me!
-</button>
+<button data-v-f3f3eg9 class="my-class">Click me!</button>
 ```
 
 When a parent component with scoped styles makes use of a functional component,
@@ -240,15 +244,3 @@ export function getScopedStyleData(parent) {
   return data;
 }
 ```
-
-## Performance
-
-This util was written with performance in mind. Since functional components are
-perfect for components that are stateless and have many nodes rendered, the
-`mergeData` util is expected to be called extensively. As such, minimal variable
-allocations are made as well as minimal internal function calls _(for loops are
-preferred over `map`, `reduce`, & `forEach` to avoid adding stack frames)_.
-TypeScript is used with Vue typings to ensure the most accurate merge strategy
-for each property of the `context.data` object. You can run the benchmark
-yourself, but simple merges run at ~1,000,000 ops/sec and complex merges at
-~400,000 ops/sec.

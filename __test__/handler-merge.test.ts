@@ -1,4 +1,4 @@
-import { mergeData } from "../src/index";
+import { mergeData, VNodeData } from "../src/index";
 
 it("should not mutate original object (issue #2)", () => {
   let def1 = { onClick() {} };
@@ -20,27 +20,17 @@ it("should set single handlers and concat multi", () => {
   let h1 = console.log;
   let h2 = console.info;
   let h3 = console.error;
-  let actual: Record<string, unknown>;
+  let actual: VNodeData;
 
-  actual = mergeData(
-    { class: ["btn", "text-center"] },
-    { onMouseup: h1 }
-  );
+  actual = mergeData({ class: ["btn", "text-center"] }, { onMouseup: h1 });
   expect(actual).toMatchObject({ onMouseup: h1 });
   expect(Array.isArray(actual.onMouseup)).toBe(false);
 
-  actual = mergeData(
-    { onMouseup: h1 },
-    { class: ["btn", "text-center"] }
-  );
+  actual = mergeData({ onMouseup: h1 }, { class: ["btn", "text-center"] });
   expect(actual).toMatchObject({ onMouseup: h1 });
   expect(Array.isArray(actual.onMouseup)).toBe(false);
 
-  actual = mergeData(
-    { onMouseup: h1 },
-    { onMouseup: h2 },
-    { onMouseup: h3 }
-  );
+  actual = mergeData({ onMouseup: h1 }, { onMouseup: h2 }, { onMouseup: h3 });
   expect(Array.isArray(actual.onMouseup)).toBe(true);
   expect(actual.onMouseup).toContain(h1);
   expect(actual.onMouseup).toContain(h2);

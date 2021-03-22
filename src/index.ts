@@ -1,9 +1,9 @@
-import { mergeClass, AttrsClass } from "./mergeClass";
+export type VNodeData = Record<string, unknown>;
 
 const pattern = {
   kebab: /-(\w)/g,
   styleProp: /:(.*)/,
-	styleList: /;(?![^(]*\))/g,
+  styleList: /;(?![^(]*\))/g,
 } as const;
 
 function camelReplace(_substr: string, match: string) {
@@ -34,11 +34,11 @@ function parseStyle(style: string) {
 /**
  * Intelligently merges data for createElement.
  * Merges arguments left to right, preferring the right argument.
- * Returns new attributes (Record<string, unknown>) object.
+ * Returns new attributes (VNodeData) object.
  */
-function mergeData(...vNodeData: Record<string, unknown>[]): Record<string, unknown>;
-function mergeData(): Record<string, unknown> {
-  let mergeTarget: Record<string, unknown> = {};
+function mergeData(...vNodeData: VNodeData[]): VNodeData;
+function mergeData(): VNodeData {
+  let mergeTarget: VNodeData = {};
   let i: number = arguments.length;
   let prop: string;
 
@@ -47,31 +47,52 @@ function mergeData(): Record<string, unknown> {
     // Iterate through the data properties and execute merge strategies
     // Object.keys eliminates need for hasOwnProperty call
     for (prop of Object.keys(arguments[i])) {
-      switch (prop) {
-        // class merge strategy (parse clas objects, and merge to an array containing strings and max 1 object for conditionals)
-        case "class":
-          mergeTarget[prop] = mergeClass(arguments[i][prop] as AttrsClass, mergeTarget[prop] as AttrsClass);
-          continue;
-        //merge style by concatenating arrays
-        case "style": {
-          if (!Array.isArray(mergeTarget[prop])) {
-            mergeTarget[prop] = [];
-          }
+      if (arguments[i][prop] == null) {
+        continue;
+      }
 
-          let style: any[];
-          if (Array.isArray(arguments[i].style)) {
-            style = arguments[i].style;
-          } else {
-            style = [arguments[i].style];
-          }
-          for (let j = 0; j < style.length; j++) {
-            let s = style[j];
-            if (typeof s === "string") {
-              style[j] = parseStyle(s);
+      switch (prop) {
+        case "class": {
+          let classes: any[] = [];
+          {
+            let value = mergeTarget["class"];
+            if (Array.isArray(value)) {
+              classes = value;
             }
           }
-          if(style === undefined || style === null || style.every(x => x === undefined || x === null)) style = [];
-          mergeTarget[prop] = (mergeTarget[prop] as Record<string, unknown>[]).concat(style);
+
+          // Repackaging in an array allows Vue runtime
+          // to merge class/style bindings regardless of type.
+          mergeTarget["class"] = classes.concat(arguments[i]["class"]);
+          continue;
+        }
+
+        // merge style by concatenating arrays
+        case "style": {
+          let styles: any[] = [];
+          {
+            let value = mergeTarget.style;
+            if (Array.isArray(value)) {
+              styles = value;
+            }
+          }
+
+          let thisStyle: any[] = [];
+          if (Array.isArray(arguments[i].style)) {
+            thisStyle = arguments[i].style;
+          } else {
+            thisStyle.push(arguments[i].style);
+          }
+
+          for (let j = 0; j < thisStyle.length; j++) {
+            let s = thisStyle[j];
+            if (typeof s === "string") {
+              thisStyle[j] = parseStyle(s);
+            }
+          }
+
+          mergeTarget[prop] = styles.concat(thisStyle);
+
           continue;
         }
 
@@ -86,7 +107,7 @@ function mergeData(): Record<string, unknown> {
         }
       }
 
-      if (prop.startsWith('on') && prop !== 'on') {
+      if (prop.startsWith("on") && prop !== "on") {
         // Object, the properties of which to merge via array merge strategy (array concatenation).
         // Callback merge strategy merges callbacks to the beginning of the array,
         // so that the last defined callback will be invoked first.
@@ -96,17 +117,21 @@ function mergeData(): Record<string, unknown> {
         // Concat function to array of functions if callback present.
         if (mergeTarget[prop] && !Array.isArray(mergeTarget[prop])) {
           // Insert current iteration data in beginning of merged array.
-          mergeTarget[prop] = [
-            mergeTarget[prop],
-            arguments[i][prop]
-          ]
+          mergeTarget[prop] = [mergeTarget[prop], arguments[i][prop]];
           continue;
-        } else if (Array.isArray(mergeTarget[prop])) {
-          if(Array.isArray(arguments[i][prop])) {
-            (mergeTarget[prop] as unknown[]).push(...arguments[i][prop])
+        }
+
+        let targetValue = mergeTarget[prop];
+        let thisValue = arguments[i][prop];
+
+        // The `else` condition falls through to a simple assignment.
+        if (Array.isArray(targetValue)) {
+          if (Array.isArray(thisValue)) {
+            targetValue.push(...thisValue);
           } else {
-            (mergeTarget[prop] as unknown[]).push(arguments[i][prop])
+            targetValue.push(thisValue);
           }
+
           continue;
         }
       }
